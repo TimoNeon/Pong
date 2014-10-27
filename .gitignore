@@ -1,1 +1,4 @@
 pong/bin/
+.settings/
+.classpath
+.project
