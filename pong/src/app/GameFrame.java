@@ -23,13 +23,16 @@ public class GameFrame extends JPanel implements Runnable {
 	GUIElements.Bat _realplayer;
 	GUIElements.Ball _ball;
 	
-	public static final int INTERVAL = 500; // Set in ms
+	public static final int TIMEOUT = 500; //in ms
 	
 	// Runtime variables
 	private JFrame _frame = new JFrame();
 	
-	
 	public GameFrame(Bat autoplayer, Bat realplayer, Ball ball) {
+		this._autoplayer = autoplayer;
+		this._realplayer = realplayer;
+		this._ball = ball;
+		
 		// create frame
 		_frame.setVisible(true);
 		_frame.setContentPane(this);
@@ -43,7 +46,7 @@ public class GameFrame extends JPanel implements Runnable {
 				int keyCode = e.getKeyCode();
 				switch(keyCode){
 						case KeyEvent.VK_W: 
-							//TODO fúck
+							//TODO fï¿½ck
 							break;
 						case KeyEvent.VK_S: 
 							//TODO the System
@@ -56,10 +59,6 @@ public class GameFrame extends JPanel implements Runnable {
 				super.keyReleased(e);
 			}
 		});
-		
-		this._autoplayer = autoplayer;
-		this._realplayer = realplayer;
-		this._ball = ball;
 		
 		// set initial bats position
 		_autoplayer.setPosition(new Dimension(0, 27));
@@ -96,7 +95,7 @@ public class GameFrame extends JPanel implements Runnable {
 			try {
 				repaint();
 				
-				Thread.sleep(INTERVAL);
+				Thread.sleep(TIMEOUT);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

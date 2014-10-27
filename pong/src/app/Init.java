@@ -4,15 +4,18 @@ import java.awt.Color;
 
 public class Init {
 	
-	GUIElements.Bat _autoplayer = new GUIElements.Bat(Color.GREEN);
-	GUIElements.Bat _realplayer = new GUIElements.Bat(Color.GREEN);
-	GUIElements.Ball _ball = new GUIElements.Ball(Color.GREEN);
+	private GUIElements.Bat _autoplayer = new GUIElements.Bat(Color.GREEN);
+	private GUIElements.Bat _realplayer = new GUIElements.Bat(Color.GREEN);
+	private GUIElements.Ball _ball = new GUIElements.Ball(Color.GREEN);
 	
 	public static void main(String[] args) {
-		new Init();
+		Init app = new Init();
+		app.init();
 	}
 	
-	public Init() {
+	public void init() {
 		GameFrame pong = new GameFrame(_autoplayer, _realplayer, _ball);
+		
+		AutomaticPlayer auto = new AutomaticPlayer(_autoplayer, _ball);
 	}
 }
