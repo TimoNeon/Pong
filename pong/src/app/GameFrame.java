@@ -23,7 +23,7 @@ public class GameFrame extends JPanel implements Runnable {
 	GUIElements.Bat _realplayer;
 	GUIElements.Ball _ball;
 	
-	public static final int TIMEOUT = 500; //in ms
+	public static final int TIMEOUT = Init.TIMEOUT;
 	
 	// Runtime variables
 	private JFrame _frame = new JFrame();
@@ -69,7 +69,7 @@ public class GameFrame extends JPanel implements Runnable {
 		_realplayer.setCellSize(getCellSize());
 		_ball.setCellSize(getCellSize());
 		
-		run();
+		//run();
 	}
 	
 	@Override

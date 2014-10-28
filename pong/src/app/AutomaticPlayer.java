@@ -7,7 +7,7 @@ import app.GUIElements.Bat;
 
 public class AutomaticPlayer implements Runnable {
 	
-	private static final int INTERVAL = 500;
+	private static final int INTERVAL = Init.TIMEOUT;
 	
 	private GUIElements.Bat _autoplayer;
 	private GUIElements.Ball _ball;
@@ -15,7 +15,7 @@ public class AutomaticPlayer implements Runnable {
 	public AutomaticPlayer(GUIElements.Bat autoplayer, GUIElements.Ball ball) {
 		_autoplayer = autoplayer;
 		_ball = ball;
-		run();
+//		_autoplayer.setPosition(new Dimension(_autoplayer.getPosition().width, 2));
 	}
 	
 	@Override
@@ -24,7 +24,6 @@ public class AutomaticPlayer implements Runnable {
 			try {
 				if(_ball.getVelocity() < 0) {
 					// Ball moves to bat
-					
 				}
 				else {
 					// ball moves in opposite direction
@@ -32,17 +31,12 @@ public class AutomaticPlayer implements Runnable {
 					// if the ball is not already in the center (=27)
 					if(_autoplayer.getPosition().height < 27) {
 						// move bat down
-						_autoplayer.setPosition(new Dimension(
-								_autoplayer.getPosition().width,
-								_autoplayer.getPosition().height++
-								));
+						_autoplayer.setPosition(new Dimension(_autoplayer.getPosition().width, _autoplayer.getPosition().height+1));
 					} else if(_autoplayer.getPosition().height > 27) {
 						// move bat up
-						_autoplayer.setPosition(new Dimension(
-							_autoplayer.getPosition().width,
-							_autoplayer.getPosition().height--
-							));
+						_autoplayer.setPosition(new Dimension(_autoplayer.getPosition().width, _autoplayer.getPosition().height-1));
 					}
+					System.out.println(_autoplayer.getPosition());
 				}
 				
 				Thread.sleep(INTERVAL);
