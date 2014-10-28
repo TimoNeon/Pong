@@ -19,9 +19,15 @@ public class GameFrame extends JPanel implements Runnable {
 	// TODO make variable
 	public int cellSize = 10;
 	
+	//keys
+	boolean key_up = false, key_down = false;
+	
 	GUIElements.Bat _autoplayer;
 	GUIElements.Bat _realplayer;
 	GUIElements.Ball _ball;
+	
+	//Draw Panel
+	DrawPanel drawer = new DrawPanel();
 	
 	public static final int TIMEOUT = Init.TIMEOUT;
 	
@@ -35,7 +41,7 @@ public class GameFrame extends JPanel implements Runnable {
 		
 		// create frame
 		_frame.setVisible(true);
-		_frame.setContentPane(this);
+		_frame.setContentPane(drawer);
 		_frame.setSize(FRAME_SIZE);
 		_frame.setResizable(false);
 		_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,19 +50,18 @@ public class GameFrame extends JPanel implements Runnable {
 			public void keyPressed(KeyEvent e) {
 				super.keyPressed(e);
 				int keyCode = e.getKeyCode();
-				switch(keyCode){
-						case KeyEvent.VK_W: 
-							//TODO f�ck
-							break;
-						case KeyEvent.VK_S: 
-							//TODO the System
-							break;
-				}
+				
+				if(keyCode==KeyEvent.VK_W) key_down = true; //W_Key is pressed = Bat down
+				else if(keyCode==KeyEvent.VK_S) key_up = true; //S_Key is pressed = Bat up
 			}
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
 				super.keyReleased(e);
+				int keyCode = e.getKeyCode();
+				
+				if(keyCode==KeyEvent.VK_W) key_down = false; //W_Key is released
+				else if(keyCode==KeyEvent.VK_S) key_up = false; //S_Key is released
 			}
 		});
 		
@@ -68,32 +73,14 @@ public class GameFrame extends JPanel implements Runnable {
 		_autoplayer.setCellSize(getCellSize());
 		_realplayer.setCellSize(getCellSize());
 		_ball.setCellSize(getCellSize());
-		
-		//run();
-	}
-	
-	@Override
-	public void paintComponent(Graphics g) {
-		int width = getWidth();
-		int height = getHeight();
-	
-		//Background
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, width, height);
-		
-		//Bats
-		_realplayer.drawElement(g);
-		_autoplayer.drawElement(g);
-		
-		//Ball
-		_ball.drawElement(g);
 	}
 
 	@Override
 	public void run() {
 		while(true) {
 			try {
-				repaint();
+				handleKeys();
+				drawer.repaint();
 				
 				Thread.sleep(TIMEOUT);
 			} catch (InterruptedException e) {
@@ -102,8 +89,35 @@ public class GameFrame extends JPanel implements Runnable {
 		}
 	}
 
+	private void handleKeys(){
+		if(key_up){
+			_realplayer.setPosition(new Dimension(_realplayer.getPosition().width, _realplayer.getPosition().height+1));
+		}else if(key_down){
+			_realplayer.setPosition(new Dimension(_realplayer.getPosition().width, _realplayer.getPosition().height-1));
+		}
+	}
 	
 	public int getCellSize(){
 		return cellSize;
+	}
+	
+	private class DrawPanel extends JPanel{
+		@Override
+		public void paintComponent(Graphics g) {
+			int width = getWidth();
+			int height = getHeight();
+		
+			//Background
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, width, height);
+			
+			//Bats
+			_realplayer.drawElement(g);
+			_autoplayer.drawElement(g);
+			
+			System.out.println("REALPLAYER: " + _realplayer.getPosition());
+			//Ball
+			_ball.drawElement(g);
+		}
 	}
 }
