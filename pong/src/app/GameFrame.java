@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import app.GUIElements.Ball;
 import app.GUIElements.Bat;
 
-public class GameFrame extends JPanel implements Runnable {
+public class GameFrame implements Runnable {
 	
 	// Implementation of constants
 	public static final Dimension FRAME_SIZE = new Dimension(650, 600);
@@ -68,7 +68,7 @@ public class GameFrame extends JPanel implements Runnable {
 		// set initial bats position
 		_autoplayer.setPosition(new Dimension(0, 27));
 		_realplayer.setPosition(new Dimension(64, 27));
-		_ball.setPosition(new Dimension(_realplayer.getPosition().width-2, _realplayer.getPosition().height+2));
+		_ball.setPosition(new Dimension(32, 30));
 		
 		_autoplayer.setCellSize(getCellSize());
 		_realplayer.setCellSize(getCellSize());
@@ -115,7 +115,6 @@ public class GameFrame extends JPanel implements Runnable {
 			_realplayer.drawElement(g);
 			_autoplayer.drawElement(g);
 			
-			System.out.println("REALPLAYER: " + _realplayer.getPosition());
 			//Ball
 			_ball.drawElement(g);
 		}
